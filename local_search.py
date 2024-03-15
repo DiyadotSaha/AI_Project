@@ -62,19 +62,27 @@ if __name__ == "__main__":
     print("Initial Path cost:", currCost)
     isImproved = True
     count = 0
-    for i in range(0, n-1):
-        for j in range(i+1, n):
-            
-            costDiff = distance(path[i], path[j], graph) + distance(path[i+1], path[(j+1)%n], graph) - distance(path[i], path[i+1], graph) - distance(path[j], path[(j+1)%n], graph)
-           
-            if costDiff < 0:
-                print('yes')
-                path = two_opt_swap(path, graph, i, j)
-                currCost += costDiff
-                isImproved = True
-            count+=1
-            print('count : ' , count)
-            print('currCost : ', currCost)    
+    while isImproved and count < 1000:
+        isImproved = False
+        for i in range(0, n-1):
+            for j in range(i+1, n):
+                
+                costDiff = distance(path[i], path[j], graph) + distance(path[i+1], path[(j+1)%n], graph) - distance(path[i], path[i+1], graph) - distance(path[j], path[(j+1)%n], graph)
+                # print('distance(path[i], path[j], graph) : ' , distance(path[i], path[j], graph))
+                # print('distance(path[i+1], path[(j+1)%n], graph) : ' , distance(path[i+1], path[(j+1)%n], graph))
+                # print('distance(path[i], path[i+1], graph) : ' , distance(path[i], path[i+1], graph))
+                # print('distance(path[j], path[(j+1)%n], graph) : ' , distance(path[j], path[(j+1)%n], graph))
+                if costDiff < 0:
+                    print('yes')
+                    print('costDiff : ', costDiff)  
+                    path = two_opt_swap(path, graph, i, j)
+                    print('currCost before : ', currCost) 
+                    currCost += costDiff
+                    print('currCost : ', currCost) 
+                    isImproved = True
+        count+=1
+        print('count : ' , count)
+        #print('currCost : ', currCost)    
     print('best cost : ', currCost)
     for i in range(len(path)):
         print(path[i].x, end=' ')
