@@ -28,10 +28,9 @@ def calculate_total_distance(path, graph):
         total_distance += graph[path[i-1]][path[i]]
     return total_distance
 
-def main(filename):
+def nearest_neighbor_tsp(filename):
     with open(filename, "r") as file:
         num_nodes = int(file.readline().strip())
-        # Read the adjacency matrix
         graph = np.zeros((num_nodes, num_nodes))
         for i in range(num_nodes):
             row = list(map(float, file.readline().strip().split()))
@@ -41,11 +40,4 @@ def main(filename):
     optimal_path = nearest_neighbor(graph, start_node)
     optimal_path.append(start_node)  # Complete the loop
     total_distance = calculate_total_distance(optimal_path, graph)
-    print("Optimal Path:", optimal_path)
-    print("Total Distance:", total_distance)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run nearest neighbor algorithm on a TSP instance.")
-    parser.add_argument("filename", help="Path to the TSP instance file")
-    args = parser.parse_args()
-    main(args.filename)
+    return optimal_path, total_distance
