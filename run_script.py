@@ -1,5 +1,6 @@
 import os
 import subprocess
+import argparse
 import h_search
 import local_search
 
@@ -20,6 +21,19 @@ def main():
     v = 5   
     p = 1   
 
+    parser = argparse.ArgumentParser(description="Generate random Traveling Sales Person problems.")
+    parser.add_argument("-n", "--n", help="N: number of locations", required=True, type=int)
+    parser.add_argument("-k", "--k", help="K: number of distinct distance values to use", required=True, type=int)
+    parser.add_argument("-u", "--u", help="U: mean of normal distribution for distances", required=True, type=int)
+    parser.add_argument("-v", "--v", help="V: variance of normal distribution for distances", required=True, type=int)
+    parser.add_argument("-p", "--p", help="P: number of problem instances to generate (default: 1)", required=False, type=int, default=1)
+    args = parser.parse_args()
+
+    n = args.n
+    k = args.k
+    u = args.u
+    v = args.v
+    p = args.p
     generate_TSP_instance(n, k, u, v, p)
 
     filename = f"tsp-problem-{n}-{k}-{u}-{v}-1.txt"
@@ -27,8 +41,9 @@ def main():
     print("Running TSP using heauristic search: Nearest Neighbour---------")
     print("Optimal Path:", result[0])
     print("Total Distance:", result[1])
-    result = local_search.run_local_search(filename)
     print("\n\nRunning TSP using Local search: ---------")
+    result = local_search.run_local_search(filename)
+
     print("Optimal Path:", result[1])
     print("Total Distance:", result[0])
 
