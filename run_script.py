@@ -3,6 +3,8 @@ import subprocess
 import argparse
 import h_search
 import local_search
+import time
+
 
 def generate_TSP_instance(n, k, u, v, p):
     genTSP_command = f"python3 generate_TSP.py -n {n} -k {k} -u {u} -v {v} -p {p}"
@@ -37,13 +39,16 @@ def main():
     generate_TSP_instance(n, k, u, v, p)
 
     filename = f"tsp-problem-{n}-{k}-{u}-{v}-1.txt"
+    start = time.process_time()
     result = h_search.nearest_neighbor_tsp(filename)
+    print("Time to complete nearest neighbour: {} ms".format((time.process_time() - start)*1000))
     print("Running TSP using heauristic search: Nearest Neighbour---------")
     print("Optimal Path:", result[0])
     print("Total Distance:", result[1])
     print("\n\nRunning TSP using Local search: ---------")
+    start = time.process_time()
     result = local_search.run_local_search(filename)
-
+    print("Time to complete 2OPT: {} ms".format((time.process_time() - start)*1000))
     print("Optimal Path:", result[1])
     print("Total Distance:", result[0])
 
