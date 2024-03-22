@@ -17,9 +17,7 @@ This command with run both the local search and the heuristic search with the fo
 
 To generate different TSP instances, you can use the `generate_TSP.py` file. Below is an example command to generate a TSP problem:
   
-  ```
-python genTSP.py -n 5 -k 3 -u 10 -v 5 -p 3
-  ```.
+  ``` python genTSP.py -n 5 -k 3 -u 10 -v 5 -p 3 ```.
 This command generates 3 TSP instances with 5 locations, 3 distinct distance values, a mean of 10, a variance of 5 and 3 different TSP problem instances.
 
 After generating TSP instances, you can run the solving algorithm on them. For example, if you have a TSP instance file named `tsp-problem-5-3-10-5-1.txt`, `tsp-problem-5-3-10-5-2.txt` and `tsp-problem-5-3-10-5-3.txt` you can run the solving algorithm using the following command:
